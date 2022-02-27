@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "483146900570",
+    "firebase_url": "https://kasir-5222b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kasir-5222b",
+    "storage_bucket": "kasir-5222b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483146900570:android:98dd67b967031026476463",
+        "android_client_info": {
+          "package_name": "com.snappwebdev.kasir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483146900570-p2dams2ouctph3ss9rthpdtlhsavfiij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.snappwebdev.kasir",
+            "certificate_hash": "3c17fd88d77cef65d7369f530f81ac560ef25693"
+          }
+        },
+        {
+          "client_id": "483146900570-4fnfa4lsl8643vcgjgst428a7bblrp6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCivfhUv_pZqUpeOipdG9aZI2MQKrpry_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483146900570-4fnfa4lsl8643vcgjgst428a7bblrp6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

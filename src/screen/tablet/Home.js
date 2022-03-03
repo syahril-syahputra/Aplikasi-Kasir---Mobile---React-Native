@@ -16,7 +16,7 @@ const Drawer = createDrawerNavigator();
 const HomeTablet = () => {
     return (
 
-        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} initialRouteName="daftarStok"
+        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} initialRouteName="kasir"
 
             screenOptions={{
                 // drawerType: Dimensions.get('screen').width >= 768 ? 'permanent' : 'hide',

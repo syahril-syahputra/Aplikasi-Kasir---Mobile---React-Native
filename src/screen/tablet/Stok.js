@@ -11,6 +11,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import FileViewer from "react-native-file-viewer";
 import InputStokAwal from './stok/modal/InputStokAwal';
 
+
 const Stok = () => {
     const navigation = useNavigation();
 

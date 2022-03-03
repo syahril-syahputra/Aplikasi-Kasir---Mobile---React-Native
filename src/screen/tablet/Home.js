@@ -6,6 +6,7 @@ import KasirTablet from './Kasir';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import DataProductTablet from './DataProduct';
 import DataCustomerTable from './DataCustomer';
+import Stok from './Stok'
 import LaporanTablet from './Laporan';
 import LaporanBulanan from './LaporanBulanan';
 import DataUser from './DataUser';
@@ -15,7 +16,7 @@ const Drawer = createDrawerNavigator();
 const HomeTablet = () => {
     return (
 
-        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} initialRouteName="kasir"
+        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} initialRouteName="daftarStok"
 
             screenOptions={{
                 // drawerType: Dimensions.get('screen').width >= 768 ? 'permanent' : 'hide',
@@ -26,6 +27,7 @@ const HomeTablet = () => {
 
             }}>
             <Drawer.Screen name="kasir" component={KasirTablet} />
+            <Drawer.Screen name="daftarStok" component={Stok} />
             <Drawer.Screen name="daftarProduct" component={DataProductTablet} />
             <Drawer.Screen name="daftarCustomer" component={DataCustomerTable} />
             <Drawer.Screen name="laporan" component={LaporanBulanan} />

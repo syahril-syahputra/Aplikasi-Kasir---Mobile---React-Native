@@ -105,6 +105,17 @@ const DrawerContent = props => {
                             label="Daftar Customer"
                             onPress={() => props.navigation.navigate("daftarCustomer")}
                         />
+                        <DrawerItem
+                            icon={(color, size) => (
+                                <Icon
+                                    name='dropbox'
+                                    color={color}
+                                    size={24}
+                                />
+                            )}
+                            label="Stok Skincare"
+                            onPress={() => props.navigation.navigate("daftarStok")}
+                        />
                         {
                             data.user && data.user.email === 'master@gmail.com' ?
                                 <DrawerItem

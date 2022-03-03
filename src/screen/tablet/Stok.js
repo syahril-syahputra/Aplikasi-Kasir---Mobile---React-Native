@@ -16,7 +16,6 @@ const Stok = () => {
 
     const [dataProduk, setdataProduk] = useState([])
     const [dataStokBulanIni, setdataStokBulanIni] = useState([])
-    const [isStokAwal, setisStokAwal] = useState(false)
     const [dataPenjualan, setdataPenjualan] = useState([])
 
 
@@ -44,9 +43,10 @@ const Stok = () => {
     }
 
 
-    const createRows = datas => {
+    const createRows = async (datas, stok, penjualan) => {
         const tempdata = []
         datas.map((item, index) => {
+
             const oddeven = index % 2;
             tempdata.push(
                 <TouchableOpacity onPress={() => showHarian()} key={index}>
@@ -54,9 +54,9 @@ const Stok = () => {
                     <DataTable.Row style={{ backgroundColor: oddeven === 0 ? '#FFFFFF' : '#FAFAFA' }}>
                         <DataTable.Cell>{item._data.kodeProduk}</DataTable.Cell>
                         <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{item._data.namaProduk}</DataTable.Cell>
-                        <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{dataStokBulanIni[item.id] || 0}</DataTable.Cell>
-                        <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{dataPenjualan[item.id] || 0}</DataTable.Cell>
-                        <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{0}</DataTable.Cell>
+                        <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{stok[item.id] || 0}</DataTable.Cell>
+                        <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{penjualan[item.id] || 0}</DataTable.Cell>
+                        <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{(stok[item.id] || 0) - (penjualan[item.id] || 0)}</DataTable.Cell>
                     </DataTable.Row>
                 </TouchableOpacity>
             )
@@ -68,6 +68,12 @@ const Stok = () => {
 
     const refresh = async () => {
         setisLoading(true)
+        const stokawalbulanan = await firestore()
+            .collection('stok')
+            .where('bulan', '==', bulan + 1)
+            .where('tahun', '==', tahun)
+            .get()
+
         const data = await firestore()
             .collection('produk')
             .get()
@@ -76,19 +82,10 @@ const Stok = () => {
             .where('tglTransaksi', '>=', firstmonth)
             .where('tglTransaksi', '<=', endmonth)
             .get()
-        const stokawalbulanan = await firestore()
-            .collection('stok')
-            .where('bulan', '==', bulan + 1)
-            .where('tahun', '==', tahun)
-            .get()
 
-        if (stokawalbulanan.exists) {
-            console.log(stokawalbulanan)
-            setisStokAwal(true)
-        } else {
-            setisStokAwal(false)
-            alert('Data Stok Awal ' + ArhielTglOnlyMonth(endmonth) + " Belum Di Masukan")
-        }
+
+
+       
         const daftarbarangterjual = {}
         penjualan._docs.map((item, index) => {
             item._data.dataBarang.map((itemb, indexb) => {
@@ -100,9 +97,20 @@ const Stok = () => {
             })
         })
 
+
         setdataProduk(data._docs)
         setdataPenjualan(daftarbarangterjual)
-        createRows(data._docs)
+
+        if (stokawalbulanan._docs[0]) {
+            setdataStokBulanIni(stokawalbulanan._docs[0]._data.data)
+
+            createRows(data._docs, stokawalbulanan._docs[0]._data.data, daftarbarangterjual)
+        } else {
+            setdataStokBulanIni({})
+
+            createRows(data._docs, {}, daftarbarangterjual)
+            alert('Data Stok Awal ' + ArhielTglOnlyMonth(endmonth) + " Belum Di Masukan")
+        }
 
     }
 
@@ -112,23 +120,45 @@ const Stok = () => {
 
     const [modalInputStokAwal, setmodalInputStokAwal] = useState(false)
     const finishStokAwal = async (stokawal) => {
+        setisLoading(true)
         setmodalInputStokAwal(false)
-        
-        const sender = await firestore()
+        // setdataStokBulanIni(stokawal)
+
+        const stokawalbulanan = await firestore()
+            .collection('stok')
+            .where('bulan', '==', bulan + 1)
+            .where('tahun', '==', tahun)
+            .get()
+
+
+        if (stokawalbulanan._docs[0]) {
+
+            firestore()
                 .collection('stok')
-                .add({bulan: bulan + 1, tahun:tahun, data : stokawal})
-        console.log(sender)
+                .doc(stokawalbulanan._docs[0].id)
+                .update({ bulan: bulan + 1, tahun: tahun, data: stokawal })
+        } else {
+            await firestore()
+                .collection('stok')
+                .add({ bulan: bulan + 1, tahun: tahun, data: stokawal })
+
+        }
+        refresh()
     }
     return (
         <Provider>
-            <InputStokAwal finish={finishStokAwal} produk={dataProduk} visible={[modalInputStokAwal, setmodalInputStokAwal]} />
+            <InputStokAwal stok={dataStokBulanIni} finish={finishStokAwal} produk={dataProduk} visible={[modalInputStokAwal, setmodalInputStokAwal]} />
             <View style={{ flex: 1 }}>
                 <View style={{ padding: 20, flexDirection: 'row', alignItems: 'center', backgroundColor: '#DDDDDD' }}>
-                    
-                    
+
+
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <Button mode='contained' color='#FF6600' dark={true} style={{marginRight:10, borderRadius:20}} onPress={() => setmodalInputStokAwal(true)}>Masukan Stok Awal</Button>
-                        <Text style={{ color: '#777777', fontSize: 20, marginRight: 10, fontWeight: 'bold'}}>Pilih Periode : </Text>
+                        {
+                            !isLoading ?
+                            <Button mode='contained' color='#FF6600' dark={true} style={{ marginRight: 10, borderRadius: 20 }} onPress={() => setmodalInputStokAwal(true)}>Masukan Stok Awal</Button>
+                            :null
+                        }
+                        <Text style={{ color: '#777777', fontSize: 20, marginRight: 10, fontWeight: 'bold' }}>Pilih Periode : </Text>
                         <MonthYearPicker bulan={bulan} tahun={tahun} onChange={(bulan, tahun) => { setbulan(bulan); settahun(tahun) }} startYear={2021} />
                     </View>
                     {!isLoading ?

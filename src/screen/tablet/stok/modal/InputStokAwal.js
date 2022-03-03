@@ -10,25 +10,39 @@ const InputStokAwal = props => {
 
     const [dataStok, setDataStok] = useState({})
     const updateStok = (text, id) => {
-        
-        const temp = dataStok;
-        temp[id] = parseInt(text === '' ? 0 : text)
-        setDataStok(temp)
+
+        const newArray = {...dataStok};
+        newArray[id] = parseInt(text == '' ? 0 : text)
+        setDataStok(newArray);
+
+        // const temp = dataStok;
+        // temp[id] = isNaN(text) ? text : 0
+        // setDataStok(temp)
     }
+    useEffect(() => {
+        if (visible) {
+            setDataStok(props.stok)
+            // console.log("s ")
+        } else {
+
+        }
+    }, [visible])
+
     const createRows = () => {
         const tempdata = []
         props.produk.map((item, index) => {
-            
+
             const oddeven = index % 2;
+            // console.log(dataStok[item.id])
             tempdata.push(
 
 
                 <DataTable.Row key={index} style={{ backgroundColor: oddeven === 0 ? '#FFFFFF' : '#FAFAFA' }}>
                     <DataTable.Cell>{item._data.kodeProduk}</DataTable.Cell>
                     <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>{item._data.namaProduk}</DataTable.Cell>
-                    <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, paddingVertical:5,  borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>
-                    
-                        <TextInput value={dataStok[item.id]} onChangeText={text => updateStok(text, item.id)} keyboardType='number-pad' style={{backgroundColor:'#FFFFFF', borderWidth:1, borderColor:'#AAAAAA', borderRadius:10, textAlign:'center', width:100}} />
+                    <DataTable.Cell style={{ alignItems: 'center', borderLeftWidth: 1, paddingVertical: 5, borderColor: '#DDDDDD', justifyContent: 'center' }} numeric>
+                        
+                        <TextInput value={dataStok[item.id] ? dataStok[item.id] + "" : "0"} onChangeText={text => updateStok(text, item.id)} keyboardType='number-pad' style={{ backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#AAAAAA', borderRadius: 10, textAlign: 'center', width: 100 }} />
                     </DataTable.Cell>
                 </DataTable.Row>
             )
@@ -36,7 +50,7 @@ const InputStokAwal = props => {
         // console.log(tempdata)
         return tempdata
     }
-    const finish =  () => {
+    const finish = () => {
         props.finish(dataStok)
     }
 
@@ -59,7 +73,11 @@ const InputStokAwal = props => {
 
                         </ScrollView>
                     </DataTable>
-                    <Button onPress={finish}>Finish</Button>
+                    <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-between' }}>
+
+                        <Button mode='text' color='#777777' dark={true} onPress={() => setVisible(false)}>Batal</Button>
+                        <Button mode='contained' color='#FF6600' dark={true} onPress={finish}>Update Stok Awal</Button>
+                    </View>
                 </View>
             </Modal>
         </Portal>

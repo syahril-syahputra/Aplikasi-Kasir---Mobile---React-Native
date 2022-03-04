@@ -109,6 +109,17 @@ const DrawerContent = props => {
                         <DrawerItem
                             icon={(color, size) => (
                                 <Icon
+                                    name='ticket-percent'
+                                    color={color}
+                                    size={24}
+                                />
+                            )}
+                            label="Voucher"
+                            onPress={() => props.navigation.navigate("voucher")}
+                        />
+                        <DrawerItem
+                            icon={(color, size) => (
+                                <Icon
                                     name='dropbox'
                                     color={color}
                                     size={24}

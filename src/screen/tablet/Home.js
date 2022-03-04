@@ -10,6 +10,7 @@ import Stok from './Stok'
 import LaporanTablet from './Laporan';
 import LaporanBulanan from './LaporanBulanan';
 import DataUser from './DataUser';
+import Voucher from './Voucher';
 
 
 const Drawer = createDrawerNavigator();
@@ -21,7 +22,7 @@ const HomeTablet = () => {
             screenOptions={{
                 // drawerType: Dimensions.get('screen').width >= 768 ? 'permanent' : 'hide',
                 // drawerHideStatusBarOnOpen: true,
-                headerTitle: (props => <Text>arhiel</Text>),
+                headerTitle: (props => <Text>Aplikasi</Text>),
                 // headerShown:false,\
 
 
@@ -33,6 +34,7 @@ const HomeTablet = () => {
             <Drawer.Screen name="laporan" component={LaporanBulanan} />
             <Drawer.Screen name="laporanharian" component={LaporanTablet} />
             <Drawer.Screen name="dataUser" component={DataUser} />
+            <Drawer.Screen name="voucher" component={Voucher} />
         </Drawer.Navigator>
         // <Text>arhiel</Text>
     )

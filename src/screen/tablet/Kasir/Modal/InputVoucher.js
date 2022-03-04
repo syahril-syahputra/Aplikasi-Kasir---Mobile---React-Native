@@ -13,6 +13,7 @@ const InputVoucher = props => {
     const [data, dispatchData] = useContext(voucherContext)
     const [nomorVoucher, setnomorVoucher] = useState("")
     const [tindakan, settindakan] = useState("")
+    const [catatan, setcatatan] = useState("")
     const [biaya, setbiaya] = useState(0)
     const [onLoading, setonLoading] = useState(false)
     
@@ -29,6 +30,7 @@ const InputVoucher = props => {
                 nomorVoucher: nomorVoucher,
                 tindakan: tindakan,
                 biaya : parseInt(biaya),
+                catatan : catatan
             } })
             settindakan("")
             setnomorVoucher("")
@@ -47,6 +49,7 @@ const InputVoucher = props => {
                         <TextBox title="Nomor Voucher" value={nomorVoucher} onChangeText={(text) => setnomorVoucher(text)} />
                         <TextArea title="Tindakan" value={tindakan} onChangeText={(text) => settindakan(text)} />
                         <TextBoxRp title="Biaya Tindakan" value={biaya} onChangeText={(text) => setbiaya(text)} />
+                        <TextArea title="Catatan" value={catatan} onChangeText={(text) => setcatatan(text)} />
                         
                     </View>
                 </View>

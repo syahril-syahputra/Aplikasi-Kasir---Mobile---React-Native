@@ -72,17 +72,7 @@ const DrawerContent = props => {
                             label="Home"
                             onPress={() => props.navigation.navigate("kasir")}
                         />
-                        <DrawerItem
-                            icon={(color, size) => (
-                                <Icon
-                                    name='chart-bar'
-                                    color={color}
-                                    size={24}
-                                />
-                            )}
-                            label="Laporan"
-                            onPress={() => props.navigation.navigate("laporan")}
-                        />
+                        
                         <DrawerItem
                             icon={(color, size) => (
                                 <Icon
@@ -104,6 +94,17 @@ const DrawerContent = props => {
                             )}
                             label="Daftar Customer"
                             onPress={() => props.navigation.navigate("daftarCustomer")}
+                        />
+                        <DrawerItem
+                            icon={(color, size) => (
+                                <Icon
+                                    name='chart-bar'
+                                    color={color}
+                                    size={24}
+                                />
+                            )}
+                            label="Laporan"
+                            onPress={() => props.navigation.navigate("laporan")}
                         />
                         <DrawerItem
                             icon={(color, size) => (

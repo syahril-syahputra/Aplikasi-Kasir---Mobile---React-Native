@@ -29,10 +29,10 @@ const AddProduct = props => {
     const [transferred, setTransferred] = useState(0);
 
     const simpan = async () => {
-
         if (selectedProduct) {
             if (selectedProduct.gambarProduk.url === gambarBarang) {
                 setonLoading(true)
+                console.log('a')
                 kirim(selectedProduct.gambarProduk.url, selectedProduct.gambarProduk.file)
             } else {
 
@@ -40,7 +40,14 @@ const AddProduct = props => {
                 upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
             }
         } else {
-            upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
+            if(gambarBarang)
+            {
+
+                upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
+            }else
+            {
+                kirim("", "")
+            }
 
         }
 

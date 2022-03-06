@@ -1,3 +1,5 @@
 rootProject.name = 'Kasir'
+include ':@brooons_react-native-bluetooth-escpos-printer'
+project(':@brooons_react-native-bluetooth-escpos-printer').projectDir = new File(rootProject.projectDir, '../node_modules/@brooons/react-native-bluetooth-escpos-printer/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'

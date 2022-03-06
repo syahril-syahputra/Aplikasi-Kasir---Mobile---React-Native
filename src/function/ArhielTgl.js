@@ -4,6 +4,12 @@ export const ArhielTgl = (tgl) => {
   const tglRes = tgltrx.toLocaleDateString("id-ID", options)
   return tglRes;
 }
+export const ArhielTglFull = (tgl) => {
+  var options = {weekday: 'long',  year: 'numeric', month: 'long', day: 'numeric', hour :'numeric', minute:'numeric' };
+  const tgltrx = new Date(tgl)
+  const tglRes = tgltrx.toLocaleDateString("id-ID", options)
+  return tglRes;
+}
 export const ArhielTglOnlyMonth = (tgl) => {
   var options = { year: 'numeric', month: 'long'};
   const tgltrx = new Date(tgl)

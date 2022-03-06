@@ -5,16 +5,20 @@ import firestore from '@react-native-firebase/firestore'
 import { FlatList } from 'react-native-gesture-handler'
 import ListCustomer from './ListCustomer'
 import AddCustomer from '../../DataCustomer/Modal/AddCustomer'
+import { ArhielTglWithDay } from '../../../../function/ArhielTgl';
 
-import { keranjangContext, voucherContext } from '../../Kasir'
+
+import { keranjangContext, voucherContext, printerContext } from '../../Kasir'
+import { BluetoothManager, BluetoothEscposPrinter, BluetoothTscPrinter } from '@brooons/react-native-bluetooth-escpos-printer';
+import { Rp } from '../../../../function/Rupiah'
 
 
 
 const PilihCustomer = props => {
     const [visible, setVisible] = props.visible
-
     const [data, dispatchData] = useContext(keranjangContext)
     const [voucher, dispatchVoucher] = useContext(voucherContext)
+    const [printer, dispatchPrinter] = useContext(printerContext)
     const [isLoading, setisLoading] = useState(false)
 
     const [dataCustomer, setdataCustomer] = useState([])
@@ -38,20 +42,112 @@ const PilihCustomer = props => {
     function onError(error) {
         console.error(error);
     }
-    const selectCustomerHandler = (customer) => {
+
+
+    const printheader = async (namaApp) => {
+        await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.CENTER);
+        await BluetoothEscposPrinter.printText(namaApp + "\n\r", {});
+        await BluetoothEscposPrinter.printText(ArhielTglWithDay(new Date()) + "\n\r", {});
+        await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
+    }
+    const printbarang = async (nama, jumlah, total) => {
+        let columnWidths = [12, 8, 12]
+        await BluetoothEscposPrinter.printColumn(columnWidths,
+            [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.RIGHT, BluetoothEscposPrinter.ALIGN.RIGHT],
+            [nama, "X " + jumlah, total], {});
+    }
+
+    const printTotalBelanja = async (total) => {
+
+        await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
+        let columnWidths = [16, 16]
+        await BluetoothEscposPrinter.printColumn(columnWidths,
+            [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.RIGHT],
+            ["Total Pembelian", total], {});
+    }
+    const printTindakan = async (tindakan, total) => {
+
+        let columnWidths = [20, 12]
+        await BluetoothEscposPrinter.printColumn(columnWidths,
+            [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.RIGHT],
+            [tindakan, total], {});
+    }
+    const printTotalBayar = async (total) => {
+
+        await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
+        let columnWidths = [16, 16]
+        await BluetoothEscposPrinter.printColumn(columnWidths,
+            [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.RIGHT],
+            ["Total", total], {});
+    }
+    const printFooter = async () => {
+
+        await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
+        await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.CENTER);
+        await BluetoothEscposPrinter.printText("Terima Kasih\n\r", {});
+        await BluetoothEscposPrinter.printText("------------------------------\n\r\n\r\n\r\n\r", {});
+    }
+
+    const getjumlah = () => {
+        if (data.length > 0) {
+
+            return data.reduce((a, b) => {
+                return a + (b.jumlah * b.hargaProduk);
+            }, 0);
+        } else {
+            return 0
+        }
+    }
+    const selectCustomerHandler = async (customer) => {
 
         const result = {
             dataBarang: data,
             customer: customer,
-            voucher : voucher,
+            voucher: voucher,
             tglTransaksi: new Date()
         }
+        // console.log(data)
+
+
+
         setisLoading(true)
-        firestore().collection('penjualan').add(result).then(response => {
+        firestore().collection('penjualan').add(result).then(async (response) => {
+
+
+
+            if (printer.status) {
+                await printheader("INES Beauty Clinic")
+
+
+                const total = getjumlah()
+                if (data.length !== 0) {
+
+
+                    await data.map(async (item, index) => {
+                        await printbarang(item.namaProduk, item.jumlah, Rp(item.hargaProduk * item.jumlah, false))
+
+                    })
+                    await printTotalBelanja(Rp(total))
+                }
+
+                
+                if (voucher.biaya !== 0) {
+                    await printTindakan(voucher.tindakan, Rp(voucher.biaya, false))
+                    await printTotalBayar(Rp(total + voucher.biaya))
+                }
+
+                await printFooter()
+
+
+            }
+
             setVisible(false)
             setisLoading(false)
             setsnackbar(true)
             dispatchData({ type: 'clear' })
+
+
+
 
         })
     }
@@ -76,7 +172,7 @@ const PilihCustomer = props => {
 
         setsnackbar(true)
         dispatchData({ type: 'clear' })
-        dispatchVoucher({type : 'clear'})
+        dispatchVoucher({ type: 'clear' })
 
     }
     const [modalAddCustomer, setmodalAddCustomer] = useState(false)

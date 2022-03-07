@@ -16,6 +16,7 @@ const DaftarKeranjang = () => {
     DeviceEventEmitter.addListener(
         BluetoothManager.EVENT_CONNECTED, (rsp) => {
             setstatusPrinter("Connected")
+            console.log('a')
             dispatchPrinter({
                 type: 'set', data: {
                     status: true,

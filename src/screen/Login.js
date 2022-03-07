@@ -27,11 +27,13 @@ const Login = () => {
                 PermissionsAndroid.PERMISSIONS.CAMERA,
                 PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
                 PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
             ])
 
             if (granted['android.permission.CAMERA'] &&
                 granted['android.permission.READ_EXTERNAL_STORAGE'] &&
-                granted['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted') {
+                granted['android.permission.WRITE_EXTERNAL_STORAGE'] &&
+                granted['android.permission.ACCESS_FINE_LOCATION'] === 'granted') {
                 // navigasi.dispatch(StackActions.replace('home'))
             } else {
                 alert("Harap Izinkan Seluruh Fitur untuk menggunakan Aplikasi Ini.")

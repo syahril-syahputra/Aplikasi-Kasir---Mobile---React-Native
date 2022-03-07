@@ -41,7 +41,7 @@ const App = () => {
       <dataContext.Provider value={[state, dispatch]}>
         <stack.Navigator screenOptions={{ headerShown: false }}>
           {
-            !state.isLogin ?
+            state.isLogin ?
               <stack.Screen name="home" component={Home} />
               :
               <stack.Screen name="login" component={Login} />

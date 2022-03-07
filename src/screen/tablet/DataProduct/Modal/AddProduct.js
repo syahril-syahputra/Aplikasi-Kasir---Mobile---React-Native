@@ -29,24 +29,34 @@ const AddProduct = props => {
     const [transferred, setTransferred] = useState(0);
 
     const simpan = async () => {
-        if (selectedProduct) {
-            if (selectedProduct.gambarProduk.url === gambarBarang) {
-                setonLoading(true)
-                console.log('a')
-                kirim(selectedProduct.gambarProduk.url, selectedProduct.gambarProduk.file)
-            } else {
-
-
-                upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
-            }
+        if (namaProduk === "") {
+            alert("Masukan Nama Produk")
+        } else if (kodeProduk === "") {
+            alert("Masukan Kode Produk")
+        } else if (deskripsiProduk === "") {
+            alert("Masukan Deskripsi Produk")
+        } else if (hargaProduk === "") {
+            alert("Masukan Harga Produk")
         } else {
-            if(gambarBarang)
-            {
 
-                upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
-            }else
-            {
-                kirim("", "")
+            if (selectedProduct) {
+                if (selectedProduct.gambarProduk.url === gambarBarang) {
+                    setonLoading(true)
+                    console.log('a')
+                    kirim(selectedProduct.gambarProduk.url, selectedProduct.gambarProduk.file)
+                } else {
+
+
+                    upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
+                }
+            } else {
+                if (gambarBarang) {
+
+                    upload("produk/" + NamaFile(getFileExtension(gambarBarang)))
+                } else {
+                    kirim("", "")
+                }
+
             }
 
         }

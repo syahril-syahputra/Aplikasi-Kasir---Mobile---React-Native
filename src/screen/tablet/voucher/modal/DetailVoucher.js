@@ -62,7 +62,7 @@ const DetailVoucher = props => {
     const donwload = async () => {
         let options = {
             html: `<div style="text-align:center">
-                    <h1>Data Voucher</h1>
+                    <h1>Data Pasien</h1>
                         <table>
                             <tr>
                                 <td style="padding:10">Nomor Urut</td>

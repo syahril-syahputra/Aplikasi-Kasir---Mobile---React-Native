@@ -9,6 +9,7 @@ import { ArhielTglWithDay } from '../../../../function/ArhielTgl';
 
 
 import { keranjangContext, voucherContext, printerContext } from '../../Kasir'
+import { dataContext } from '../../../../../App'
 import { BluetoothManager, BluetoothEscposPrinter, BluetoothTscPrinter } from '@brooons/react-native-bluetooth-escpos-printer';
 import { Rp } from '../../../../function/Rupiah'
 
@@ -18,6 +19,7 @@ const PilihCustomer = props => {
     const [visible, setVisible] = props.visible
     const [data, dispatchData] = useContext(keranjangContext)
     const [voucher, dispatchVoucher] = useContext(voucherContext)
+    const [user, dipatchUser] = useContext(dataContext)
     const [printer, dispatchPrinter] = useContext(printerContext)
     const [isLoading, setisLoading] = useState(false)
 
@@ -81,6 +83,13 @@ const PilihCustomer = props => {
             ["Total", total], {});
     }
     const printFooter = async () => {
+
+
+        await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
+        let columnWidths = [16, 16]
+        await BluetoothEscposPrinter.printColumn(columnWidths,
+            [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.RIGHT],
+            ["Resepsionis", user.nama], {});
 
         await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
         await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.CENTER);

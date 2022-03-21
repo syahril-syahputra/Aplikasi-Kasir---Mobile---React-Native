@@ -45,7 +45,7 @@ const App = () => {
               <stack.Screen name="home" component={Home} />
               :
               <stack.Screen name="login" component={Login} />
-          }
+          } 
 
         </stack.Navigator>
       </dataContext.Provider>

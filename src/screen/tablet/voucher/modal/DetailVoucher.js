@@ -150,7 +150,7 @@ const DetailVoucher = props => {
 
                         <table style="border-spacing:0; width:100%">
                             <tr>
-                                <td style="padding:5px; border: 1px solid;">Nama</td>
+                                <td style="padding:5px; border: 1px solid;">Nomor Voucher</td>
                                 <td style="padding:5px; text-align:left; border: 1px solid;">${data.nomorVoucher}</td>
                             </tr>
                             <tr>

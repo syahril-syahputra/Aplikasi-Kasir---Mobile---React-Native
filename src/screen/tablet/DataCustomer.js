@@ -55,9 +55,9 @@ const DataCustomer = () => {
             <View style={{ padding: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
                     <Button onPress={() => { setmodalAddCustomer(true) }} icon="plus" color='#777777' mode="contained" style={{ margin: 10 }}>
-                        Tambah Customer
+                        Tambah Pasien
                     </Button>
-                    <Searchbar value={searchText} onChangeText={text => setsearchText(text)} clearIcon={() => <Icon name='cancel' size={25} color={'#000000'} />} style={{ elevation: 0, borderBottomColor: '#DDDDDD', flex: 1, borderBottomWidth: 2 }} inputStyle={{ padding: 0, color: '#777777' }} placeholder='Masukan Nama Atau Nomor HP Customer' />
+                    <Searchbar value={searchText} onChangeText={text => setsearchText(text)} clearIcon={() => <Icon name='cancel' size={25} color={'#000000'} />} style={{ elevation: 0, borderBottomColor: '#DDDDDD', flex: 1, borderBottomWidth: 2 }} inputStyle={{ padding: 0, color: '#777777' }} placeholder='Masukan Nama Atau Nomor HP Pasien' />
                 </View>
 
             </View>

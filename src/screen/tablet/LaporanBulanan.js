@@ -166,6 +166,7 @@ const LaporanBulanan = () => {
 
         let options = {
             html: `<div style="text-align:center">
+                    <h1>Ines Beauty Clinic</h1>
                     <h1>Data Bulan ${bulan + 1} Tahun ${tahun}</h1>
                         <table style="border-spacing:0; width:100%">
                         <thead>

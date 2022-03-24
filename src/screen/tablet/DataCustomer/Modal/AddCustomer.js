@@ -46,7 +46,7 @@ const AddCustomer = props => {
             }
         } else {
             if (namaCustomer === "" || kodeCustomer === "") {
-                alert("Masukan Nama Dan Kode Customer")
+                alert("Masukan Nama Dan Kode  Pasien")
             } else if (fotoCustomer) {
 
                 upload("customer/" + NamaFile(getFileExtension(fotoCustomer)))
@@ -163,8 +163,8 @@ const AddCustomer = props => {
                     <SelectImage value={fotoCustomer} onSelected={uri => setfotoCustomer(uri)} />
 
                     <View style={{ flex: 1 }}>
-                        <TextBox title="Kode Customer" value={kodeCustomer} onChangeText={(text) => setkodeCustomer(text)} />
-                        <TextBox title="Nama Customer" value={namaCustomer} onChangeText={(text) => setnamaCustomer(text)} />
+                        <TextBox title="Kode Pasien" value={kodeCustomer} onChangeText={(text) => setkodeCustomer(text)} />
+                        <TextBox title="Nama Pasien" value={namaCustomer} onChangeText={(text) => setnamaCustomer(text)} />
                         <TextBox title="Umur Pasien" value={umurCustomer} onChangeText={(text) => setumurCustomer(text)} />
                         <TextBox title="Pekerjaan" value={pekerjaanCustomer} onChangeText={(text) => setpekerjaanCustomer(text)} />
 
@@ -179,8 +179,8 @@ const AddCustomer = props => {
                             <Picker.Item label="Pria" value="Pria" />
                             <Picker.Item label="Wanita" value="Wanita" />
                         </Picker>
-                        <TextBoxHP title="No. HP Customer" value={hpCustomer} onChangeText={(text) => sethpCustomer(text)} />
-                        <TextArea title="Alamat Customer" value={alamatCustomer} onChangeText={(text) => setalamatCustomer(text)} />
+                        <TextBoxHP title="No. HP Pasien" value={hpCustomer} onChangeText={(text) => sethpCustomer(text)} />
+                        <TextArea title="Alamat Pasien" value={alamatCustomer} onChangeText={(text) => setalamatCustomer(text)} />
 
                     </View>
                 </View>

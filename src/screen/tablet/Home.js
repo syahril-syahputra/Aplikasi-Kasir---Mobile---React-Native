@@ -7,11 +7,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import DataProductTablet from './DataProduct';
 import DataCustomerTable from './DataCustomer';
 import Stok from './Stok'
+
 import LaporanTablet from './Laporan';
 import LaporanBulanan from './LaporanBulanan';
 import DataUser from './DataUser';
 import Voucher from './Voucher';
-import tester from './tester';
 
 
 const Drawer = createDrawerNavigator();
@@ -36,7 +36,6 @@ const HomeTablet = () => {
             <Drawer.Screen name="laporanharian" component={LaporanTablet} />
             <Drawer.Screen name="dataUser" component={DataUser} />
             <Drawer.Screen name="voucher" component={Voucher} />
-            <Drawer.Screen name="tester" component={tester} />
         </Drawer.Navigator>
         // <Text>arhiel</Text>
     )

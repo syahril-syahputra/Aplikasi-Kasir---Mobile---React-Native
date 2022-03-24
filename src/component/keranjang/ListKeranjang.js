@@ -11,7 +11,14 @@ const ListKeranjang = props => {
         <View style={{ backgroundColor: '#EEEEEE', marginBottom: 5, padding: 10, borderRadius: 10 }}>
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image source={item.gambarProduct} style={{ width: 50, height: 50, resizeMode: 'contain', marginRight: 5, borderRadius: 20 }} />
+                {item.gambarProduk.url === "" ?
+                    <View>
+                        <Icon name="image" size={50} color={"#AAAAAA"} style={{ backgroundColor: '#EEEEEE', marginRight: 10, borderRadius: 10 }} />
+                    </View>
+                    :
+                    <Image source={item.gambarProduct} style={{ width: 50, height: 50, resizeMode: 'contain', marginRight: 5, borderRadius: 20 }} />
+                }
+
                 <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: 12 }}>{item.namaProduct}  </Text>
                     <Text style={{ color: '#FF6600', fontSize: 12, marginTop: 5 }}>{Rp(item.hargaProduct, true)}</Text>
@@ -22,7 +29,7 @@ const ListKeranjang = props => {
 
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10 }}>
-                <TouchableOpacity style={{marginRight:20}}>
+                <TouchableOpacity style={{ marginRight: 20 }}>
                     <Icon name='trash-alt' color="#BBBBBB" size={20} />
                     {/* <Text style={{  color:'#FFFFFF', fontWeight:'bold', fontSize:12 }} onPress={() => { }}>Hapus</Text> */}
                 </TouchableOpacity>

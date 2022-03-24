@@ -60,7 +60,14 @@ const DetailTransaksi = props => {
                                 <Title style={styles.title}>{customer.namaCustomer}</Title>
                                 <Text>{customer.kodeCustomer}</Text>
                                 <Text>{customer.hpCustomer}</Text>
-                                <Text style={{fontWeight:'bold', fontSize:17, marginTop:10}}>Voucher : {voucher.nomorVoucher}</Text>
+                                {
+                                    voucher.nomorVoucher === ""
+                                    ?
+                                    null
+                                    :
+                                    <Text style={{fontWeight:'bold', fontSize:17, marginTop:10}}>Voucher : {voucher.nomorVoucher}</Text>
+
+                                }
                             </View>
                             <View style={{ flex: 1, height: 300 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#FFFFFF', borderColor: '#EEEEEE', borderWidth: 2 }}>
@@ -99,6 +106,7 @@ const DetailTransaksi = props => {
                                     Tutup
                                 </Button>
 
+                                
                                 <Button icon="delete" color="#ff4242" mode="text" onPress={() => setquertion(true)}>
                                     Hapus
                                 </Button>

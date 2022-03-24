@@ -89,7 +89,7 @@ const PilihCustomer = props => {
         let columnWidths = [16, 16]
         await BluetoothEscposPrinter.printColumn(columnWidths,
             [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.RIGHT],
-            ["Resepsionis", user.nama], {});
+            ["Resepsionis", user.user.nama], {});
 
         await BluetoothEscposPrinter.printText("------------------------------\n\r", {});
         await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.CENTER);
@@ -202,7 +202,7 @@ const PilihCustomer = props => {
                     <View style={{ width: 600 }}>
                         <View style={{ flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10, justifyContent: 'space-between' }}>
                             <Button onPress={() => { setmodalAddCustomer(true); setVisible(false) }} icon="plus" color='#777777' mode="contained" style={{ marginRight: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                Customer Baru
+                                Pasien Baru
                             </Button>
                             <Searchbar value={searchText} onChangeText={text => setsearchText(text)} placeholder='Cari Kustomer' style={{ elevation: 0, flex: 1 }} />
                         </View>

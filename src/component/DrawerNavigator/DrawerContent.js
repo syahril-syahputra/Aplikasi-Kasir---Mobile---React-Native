@@ -92,7 +92,7 @@ const DrawerContent = props => {
                                     size={24}
                                 />
                             )}
-                            label="Daftar Customer"
+                            label="Daftar Pasien"
                             onPress={() => props.navigation.navigate("daftarCustomer")}
                         />
                         <DrawerItem

@@ -3,6 +3,7 @@ import { StyleSheet, Image, View, Text } from 'react-native'
 import { Portal, Modal, Title, Button, ActivityIndicator } from 'react-native-paper'
 import { Rp } from '../../../../function/Rupiah'
 import storage from '@react-native-firebase/storage'
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import firestore from '@react-native-firebase/firestore'
 
 const DetailProduct = props => {
@@ -12,9 +13,10 @@ const DetailProduct = props => {
     const [onLoading, setonLoading] = useState(false)
 
     const deleteProduk = async () => {
-        var data = storage().ref(item.gambarProduk.file);
+        // var data = storage().ref(item.gambarProduk.file);
+        //perlu ditambahkan if jika ada gambar baru hapus gambar
         setonLoading(true)
-        await data.delete()
+        // await data.delete()
         await firestore()
             .collection('produk')
             .doc(item.id)
@@ -30,8 +32,13 @@ const DetailProduct = props => {
                 {
                     item ?
                         <View style={{ flexDirection: 'row', width: 600, alignItems: 'center' }}>
-                            <Image source={{ uri: item.gambarProduk.url }} style={{ backgroundColor: '#EEEEEE', marginRight: 10, borderRadius: 10, resizeMode: 'contain' }} width={200} height={200} />
-
+                            {item.gambarProduk.url === "" ?
+                                <View style={{width:200, height:200, justifyContent:'center', alignItems:'center'}}>
+                                    <Icon name="image" size={50} color={"#AAAAAA"} style={{ backgroundColor: '#EEEEEE', marginRight: 10, borderRadius: 10 }} />
+                                </View>
+                                :
+                                <Image source={{ uri: item.gambarProduk.url }} style={{ width: 50, height: 50, resizeMode: 'contain', marginRight: 5, borderRadius: 20 }} />
+                            }
                             <View>
                                 <View>
                                     <Title style={styles.title}>Kode Produk</Title>
@@ -69,7 +76,7 @@ const DetailProduct = props => {
                                 Tutup
                             </Button>
                             <View style={{ flexDirection: 'row' }}>
-                                <Button icon="pencil" color="#5f6bff" mode="text" onPress={() => {setVisible(false); setmodalEdit(true)}}>
+                                <Button icon="pencil" color="#5f6bff" mode="text" onPress={() => { setVisible(false); setmodalEdit(true) }}>
                                     Edit
                                 </Button>
                                 <Button icon="delete" color="#ff4242" mode="text" onPress={deleteProduk}>

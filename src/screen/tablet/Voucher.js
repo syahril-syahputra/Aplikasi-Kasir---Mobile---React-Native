@@ -54,7 +54,7 @@ const Voucher = () => {
             <View style={{ padding: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
                    
-                    <Searchbar value={searchText} onChangeText={text => setsearchText(text)} clearIcon={() => <Icon name='cancel' size={25} color={'#000000'} />} style={{ elevation: 0, borderBottomColor: '#DDDDDD', flex: 1, borderBottomWidth: 2 }} inputStyle={{ padding: 0, color: '#777777' }} placeholder='Masukan Nama Atau Nomor HP Customer' />
+                    <Searchbar value={searchText} onChangeText={text => setsearchText(text)} clearIcon={() => <Icon name='cancel' size={25} color={'#000000'} />} style={{ elevation: 0, borderBottomColor: '#DDDDDD', flex: 1, borderBottomWidth: 2 }} inputStyle={{ padding: 0, color: '#777777' }} placeholder='Masukan Nama Atau Nomor HP Pasien' />
                 </View>
 
             </View>

@@ -48,33 +48,33 @@ const DetailCustomer = props => {
 
                             <View>
                                 <View>
-                                    <Title style={styles.title}>Kode Customer</Title>
+                                    <Title style={styles.title}>Kode Pasien</Title>
                                     <Text>{item.kodeCustomer}</Text>
                                 </View>
                                 <View>
-                                    <Title style={styles.title}>Nama Customer</Title>
+                                    <Title style={styles.title}>Nama Pasien</Title>
                                     <Text>{item.namaCustomer}</Text>
                                 </View>
                                 
                                 <View>
-                                    <Title style={styles.title}>Umur Customer</Title>
+                                    <Title style={styles.title}>Umur Pasien</Title>
                                     <Text>{item.umurCustomer}</Text>
                                 </View>
                                 
                                 <View>
-                                    <Title style={styles.title}>Jenis Kelamin Customer</Title>
+                                    <Title style={styles.title}>Jenis Kelamin Pasien</Title>
                                     <Text>{item.jenisKelamin}</Text>
                                 </View>
                                 <View>
-                                    <Title style={styles.title}>Pekerjaan Customer</Title>
+                                    <Title style={styles.title}>Pekerjaan Pasien</Title>
                                     <Text>{item.pekerjaanCustomer}</Text>
                                 </View>
                                 <View>
-                                    <Title style={styles.title}>Alamat Customer</Title>
+                                    <Title style={styles.title}>Alamat Pasien</Title>
                                     <Text>{item.alamatCustomer}</Text>
                                 </View>
                                 <View>
-                                    <Title style={styles.title}>No. HP Customer</Title>
+                                    <Title style={styles.title}>No. HP Pasien</Title>
                                     <Text>{item.hpCustomer}</Text>
                                 </View>
                             </View>

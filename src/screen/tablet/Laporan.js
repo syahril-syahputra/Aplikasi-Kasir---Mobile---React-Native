@@ -20,9 +20,11 @@ const LaporanTablet = props => {
     const [tanggal, settanggal] = useState(new Date(route.params.tahun, route.params.bulan, route.params.tgl))
 
     const [rowpdf, setrowpdf] = useState("")
-    useEffect(() => {
+
+    const createRow = () => {
         let temprow = "";
         dataPenjualan.map((item, index) => {
+
             const tgl = ArhielTgl(item.tglTransaksi.toDate())
             const oddeven = index % 2;
             // const dataBarang 
@@ -40,12 +42,12 @@ const LaporanTablet = props => {
                             <td style="padding:5px; text-align:left; border: 1px solid;">${item.voucher.tindakan}</td>
                             <td style="padding:5px; text-align:right; border: 1px solid;">${Rp(getjumlahPembayaran(item.dataBarang, item.voucher.biaya), true)}</td>
                         </tr>`
-            
+
 
         })
         setrowpdf(temprow)
 
-    }, [])
+    };
     useEffect(() => {
         // const date1 = new Date(tanggal.setHours(0, 0, 0, 0));
         // const date2 = new Date(tanggal.setHours(23, 59, 59, 59));
@@ -72,22 +74,17 @@ const LaporanTablet = props => {
         })
         // console.log(data.dataBarang)
         setdataPenjualan(data)
+
         // console.log(data)
     }
 
     function onError(error) {
         console.error(error);
     }
-    // const getjumlahBarang = data => {
-    //     if (data.length > 0) {
+    useEffect(() => {
+        createRow()
+    }, [dataPenjualan])
 
-    //         return data.reduce((a, b) => {
-    //             return a + b.jumlah;
-    //         }, 0);
-    //     } else {
-    //         return 0
-    //     }
-    // }
     const getjumlahPembayaran = (data, biaya) => {
         console.log(biaya)
         if (data.length > 0) {
@@ -129,6 +126,7 @@ const LaporanTablet = props => {
     const donwload = async () => {
         let options = {
             html: `<div style="text-align:center">
+                    <h1Ines Beauty Clinic</h1>
                     <h1>Data ${ArhielTglWithDay(tanggal)}</h1>
                         <table style="border-spacing:0; width:100%">
                         <thead>
@@ -176,7 +174,12 @@ const LaporanTablet = props => {
                         <Icon name='arrow-left' color='#ff6600' size={25} />
                         <Text style={{ fontWeight: 'bold', color: '#FF6600', marginLeft: 10, fontSize: 17 }}>Kembali</Text>
                     </TouchableOpacity>
-                    <Button icon="download" onPress={donwload} color='#777777' mode='text'>Download</Button>
+                    {
+                        dataPenjualan.length === 0 ?
+                            null :
+
+                            <Button icon="download" onPress={donwload} color='#777777' mode='text'>Download</Button>
+                    }
                 </View>
 
                 <DataTable style={{ margin: 20, width: Dimensions.get('window').width - 40, flex: 1 }}>
